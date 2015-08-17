@@ -6,9 +6,6 @@ import static spark.SparkBase.staticFileLocation;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -64,7 +61,7 @@ public class Main {
 //		return "ok";
 //    });
     
-    get("/teste", (req, res) -> {
+    post("/teste", (req, res) -> {
     	return req.attributes();
     });
   }
