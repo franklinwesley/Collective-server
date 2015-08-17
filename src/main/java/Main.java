@@ -1,6 +1,5 @@
-
-
 import static spark.Spark.get;
+import static spark.Spark.post;
 import static spark.SparkBase.port;
 import static spark.SparkBase.staticFileLocation;
 
@@ -12,6 +11,8 @@ import org.json.JSONObject;
 
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
+
+import controller.ClienteController;
 
 public class Main {
 
@@ -64,13 +65,7 @@ public class Main {
 //    });
     
     get("/teste", (req, res) -> {
-    	JSONObject j = new JSONObject();
-    	try {
-			j.put("teste", "ok");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-    	return j;
+    	return req.attributes();
     });
   }
 }
