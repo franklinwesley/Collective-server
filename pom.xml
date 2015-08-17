@@ -32,6 +32,16 @@
       <artifactId>jscience</artifactId>
       <version>4.3.1</version>
     </dependency>
+    <dependency>
+	  <groupId>com.google.code.facebookapi</groupId>
+	  <artifactId>facebook-java-api</artifactId>
+	  <version>3.0.2</version>
+    </dependency>
+    <dependency>
+	  <groupId>com.google.code.gson</groupId>
+	  <artifactId>gson</artifactId>
+	  <version>2.1</version>
+	</dependency>
   </dependencies>
   <build>
     <plugins>
