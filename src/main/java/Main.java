@@ -62,7 +62,7 @@ public class Main {
 //    });
     
     post("/teste", (req, res) -> {
-    	return req.attributes();
+    	return req.body();
     });
   }
 }
