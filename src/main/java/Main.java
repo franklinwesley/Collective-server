@@ -6,9 +6,11 @@ import static spark.SparkBase.staticFileLocation;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
-
 import controller.ClienteController;
 
 public class Main {
@@ -62,7 +64,11 @@ public class Main {
 //    });
     
     post("/teste", (req, res) -> {
-    	return req.body();
+    	JsonObject jsonObject;	
+		JsonParser parser = new JsonParser();
+		jsonObject = (JsonObject) parser.parse(req.body());
+		String result = jsonObject.get("teste").toString();
+    	return result;
     });
   }
 }
