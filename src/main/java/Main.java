@@ -61,8 +61,8 @@ public class Main {
 //		return "ok";
 //    });
     
-    post("/teste", (req, res) -> {
-    	return req.attributes();
+    get("/teste", (req, res) -> {
+    	return "ok";
     });
   }
 }
