@@ -64,11 +64,11 @@ public class Main {
 //    });
     
     post("/teste", (req, res) -> {
-    	JsonObject jsonObject;	
-		JsonParser parser = new JsonParser();
-		jsonObject = (JsonObject) parser.parse(req.body());
-		String result = jsonObject.get("teste").toString();
-    	return result;
+//    	JsonObject jsonObject;	
+//		JsonParser parser = new JsonParser();
+//		jsonObject = (JsonObject) parser.parse(req.body());
+//		String result = jsonObject.get("teste").toString();
+    	return req.body();
     });
   }
 }
