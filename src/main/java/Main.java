@@ -28,47 +28,33 @@ public class Main {
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
 
-//    get("/receber", (req, res) -> {
-//    	String json = req;
-//    	return new ClienteController().receberMsg(json);
-//    });
-//
-//    post("/enviar", (req, res) -> {
-//    	String json = req;
-//    	new ClienteController().enviarMsg(json);
-//		return "ok";
-//    });
-//    
-//    post("/recomendacao", (req, res) -> {
-//    	new ClienteController().addAmigos();
-//    	String json = req;
-//		return new ClienteController().recomendar(json);
-//    });
-//    
-//    post("/newuser", (req, res) -> {
-//    	String json = req;
-//    	new ClienteController().criarCliente(json);
-//		return "ok";
-//    });
-//    
-//    post("/newfriend", (req, res) -> {
-//    	String json = req;
-//    	new ClienteController().novaAmizade(json);
-//		return "ok";
-//    });
-//    
-//    post("/localizacao", (req, res) -> {
-//    	String json = req;
-//    	new ClienteController().editarLocation(json);
-//		return "ok";
-//    });
+    post("/receber", (req, res) -> {
+    	return new ClienteController().receberMsg(req.body());
+    });
+
+    post("/enviar", (req, res) -> {
+    	new ClienteController().enviarMsg(req.body());
+		return "ok";
+    });
     
-    post("/teste", (req, res) -> {
-//    	JsonObject jsonObject;	
-//		JsonParser parser = new JsonParser();
-//		jsonObject = (JsonObject) parser.parse(req.body());
-//		String result = jsonObject.get("teste").toString();
-    	return req.body();
+    post("/recomendacao", (req, res) -> {
+    	new ClienteController().addAmigos();
+		return new ClienteController().recomendar(req.body());
+    });
+    
+    post("/newuser", (req, res) -> {
+    	new ClienteController().criarCliente(req.body());
+		return "ok";
+    });
+    
+    post("/newfriend", (req, res) -> {
+    	new ClienteController().novaAmizade(req.body());
+		return "ok";
+    });
+    
+    post("/localizacao", (req, res) -> {
+    	new ClienteController().editarLocation(req.body());
+		return "ok";
     });
   }
 }
