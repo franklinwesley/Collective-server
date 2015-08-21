@@ -2,6 +2,7 @@ package dao;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -47,12 +48,12 @@ public class ClienteDAO extends ConnectionFactory {
 	 * @return ArrayList<UserInfo> clientes
 	 */
 	public List<UserInfo> listarTodos(){
-		Connection conexao = criarConexao();
 		ArrayList<UserInfo> clientes = new ArrayList<UserInfo>();
-		
+		Connection conexao = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
+			conexao = criarConexao();
 			stmt = conexao.createStatement();
 			rs = stmt.executeQuery("select * from cliente");
 			
@@ -94,11 +95,12 @@ public class ClienteDAO extends ConnectionFactory {
 	}
 	
 	public List<UserInfo> getFriends(double id) {
-		Connection conexao = criarConexao();
 		List<UserInfo> amigos = new ArrayList<UserInfo>();
 		Statement stmt = null;
 		ResultSet rs = null;
+		Connection conexao = null;
 		try {
+			conexao = criarConexao();
 			stmt = conexao.createStatement();
 			rs = stmt.executeQuery("select amigo from amizade where cliente=" + id);
 			
@@ -187,12 +189,14 @@ public class ClienteDAO extends ConnectionFactory {
 	}
 	
 	public void newUser(String id, String name, String email, String picture) {
-		Connection conexao = criarConexao();
 		Statement stmt = null;
+		Connection conexao = null;
 		try {
+			conexao = criarConexao();
 			stmt = conexao.createStatement();
 			stmt.executeQuery("insert into cliente values(" + id + "," + name + "," + email + "," + picture +  "," + 0 + "," + 0 +")");
-		} catch (SQLException e) {
+		} catch (SQLException | URISyntaxException e) {
+			System.out.println("Erro ao conectar com o banco de dados");
 			e.printStackTrace();
 		} finally {
 			fecharConexao(conexao, stmt);
@@ -200,12 +204,14 @@ public class ClienteDAO extends ConnectionFactory {
 	}
 	
 	public void newFriend(String idCliente, String idAmigo) {
-		Connection conexao = criarConexao();
 		Statement stmt = null;
+		Connection conexao = null;
 		try {
+			conexao = criarConexao();
 			stmt = conexao.createStatement();
 			stmt.executeQuery("insert into amizade values(" + idCliente + "," + idAmigo + ")");
-		} catch (SQLException e) {
+		} catch (SQLException | URISyntaxException e) {
+			System.out.println("Erro ao conectar com o banco de dados");
 			e.printStackTrace();
 		} finally {
 			fecharConexao(conexao, stmt);
@@ -213,12 +219,14 @@ public class ClienteDAO extends ConnectionFactory {
 	}
 	
 	public void editarLocation (String idCliente, String latitude, String longitude) {
-		Connection conexao = criarConexao();
 		Statement stmt = null;
+		Connection conexao = null;
 		try {
+			conexao = criarConexao();
 			stmt = conexao.createStatement();
 			stmt.executeQuery("update cliente set latitude=" + latitude + ",longitude=" + longitude + "where id=" + idCliente);
-		} catch (SQLException e) {
+		} catch (SQLException | URISyntaxException e) {
+			System.out.println("Erro ao conectar com o banco de dados");
 			e.printStackTrace();
 		} finally {
 			fecharConexao(conexao, stmt);
