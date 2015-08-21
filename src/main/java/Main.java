@@ -3,8 +3,12 @@ import static spark.Spark.post;
 import static spark.SparkBase.port;
 import static spark.SparkBase.staticFileLocation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import model.UserInfo;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -59,8 +63,13 @@ public class Main {
     });
     
     get("/teste", (req, res) -> {
-    	ClienteDAO.getInstance().newUser("2", "franklin", "f@f.com", "asdasdasd");
-		return ClienteDAO.getInstance().listarTodos();
+    	ClienteDAO.getInstance().newUser("5", "f", "f@f.com", "asdasdasd");
+    	List<String> r = new ArrayList<String>();
+    	List<UserInfo> s = ClienteDAO.getInstance().listarTodos();
+    	for (int i = 0; i < s.size(); i++) {
+    		r.add(s.get(i).toString());
+    	}
+		return r;
     });
   }
 }
