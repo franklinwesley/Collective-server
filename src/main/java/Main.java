@@ -59,6 +59,7 @@ public class Main {
     });
     
     get("/teste", (req, res) -> {
+    	ClienteDAO.getInstance().newUser("2", "franklin", "f@f.com", "asdasdasd");
 		return ClienteDAO.getInstance().listarTodos();
     });
   }
