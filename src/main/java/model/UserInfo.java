@@ -170,5 +170,11 @@ public class UserInfo{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "UserInfo [id=" + id + ", name=" + name + ", email=" + email
+				+ "]";
+	}
+
 
 }
