@@ -209,7 +209,7 @@ public class ClienteDAO extends ConnectionFactory {
 		try {
 			conexao = criarConexao();
 			stmt = conexao.createStatement();
-			stmt.executeQuery("insert into amizade values(" + idCliente + "," + idAmigo + ")");
+			stmt.executeQuery("INSERT INTO amizade(cliente, amigo) VALUES('" + idCliente + "','" + idAmigo + "')");
 		} catch (SQLException | URISyntaxException e) {
 			System.out.println("Erro ao conectar com o banco de dados");
 			e.printStackTrace();

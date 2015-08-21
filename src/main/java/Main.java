@@ -63,7 +63,6 @@ public class Main {
     });
     
     get("/teste", (req, res) -> {
-    	ClienteDAO.getInstance().newUser("5", "f", "f@f.com", "asdasdasd");
     	List<String> r = new ArrayList<String>();
     	List<UserInfo> s = ClienteDAO.getInstance().listarTodos();
     	for (int i = 0; i < s.size(); i++) {
