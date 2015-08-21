@@ -194,7 +194,7 @@ public class ClienteDAO extends ConnectionFactory {
 		try {
 			conexao = criarConexao();
 			stmt = conexao.createStatement();
-			stmt.executeQuery("INSERT INTO cliente(id, nome, email, picture, latitude, longitude) VALUES(" + id + "," + name + "," + email + "," + picture +  "," + 0 + "," + 0 +")");
+			stmt.executeQuery("INSERT INTO cliente(id, nome, email, picture, latitude, longitude) VALUES('" + id + "','" + name + "','" + email + "','" + picture +  "','" + 0 + "','" + 0 +"')");
 		} catch (SQLException | URISyntaxException e) {
 			System.out.println("Erro ao conectar com o banco de dados");
 			e.printStackTrace();
