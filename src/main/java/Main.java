@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 import controller.ClienteController;
+import dao.ClienteDAO;
 
 public class Main {
 
@@ -55,6 +56,10 @@ public class Main {
     post("/localizacao", (req, res) -> {
     	new ClienteController().editarLocation(req.body());
 		return "ok";
+    });
+    
+    get("/teste", (req, res) -> {
+		return ClienteDAO.getInstance().listarTodos();
     });
   }
 }
