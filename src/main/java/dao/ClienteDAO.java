@@ -66,11 +66,11 @@ public class ClienteDAO extends ConnectionFactory {
 				cliente.setPicture(rs.getString("picture"));
 				cliente.setLatitude(rs.getString("latitude"));
 				cliente.setLongitude(rs.getString("longitude"));
-				dadosCategorias(cliente, "movies");
-				dadosCategorias(cliente, "books");
-				dadosCategorias(cliente, "games");
-				dadosCategorias(cliente, "music");
-				dadosCategorias(cliente, "television");
+//				dadosCategorias(cliente, "movies");
+//				dadosCategorias(cliente, "books");
+//				dadosCategorias(cliente, "games");
+//				dadosCategorias(cliente, "music");
+//				dadosCategorias(cliente, "television");
 				clientes.add(cliente);
 			}
 			
