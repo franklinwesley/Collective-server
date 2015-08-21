@@ -1,9 +1,8 @@
 package factory;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.*;
 
 
 /**
@@ -12,13 +11,6 @@ import java.sql.ResultSet;
  */
 public class ConnectionFactory {
 
-	// Caminho do banco de dados.
-	private static final String DRIVER = "org.postgresql.Driver";
-	private static final String URL = "postgres://oypfylxlwwczkz:k1a3GulmScVSMLX1f19p23yke_@ec2-107-21-125-143.compute-1.amazonaws.com:5432/dfa6hd1b2fpt89";
-	private static final String USUARIO = "oypfylxlwwczkz";
-	private static final String SENHA = "k1a3GulmScVSMLX1f19p23yke_";
-	
-
 	/**
 	 * 
 	 * Metodo responsavel por criar uma conexao com o banco 
@@ -26,23 +18,23 @@ public class ConnectionFactory {
 	 * @return
 	 */
 	public Connection criarConexao(){
-		
-		Connection conexao = null;
-		
+		URI dbUri;
 		try {
-			
-			Class.forName(DRIVER);
-			conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
-			
-		} catch (Exception e) {
-			System.out.println("Erro ao criar conexao com o banco: " + URL);
+			dbUri = new URI(System.getenv("DATABASE_URL"));
+			String username = dbUri.getUserInfo().split(":")[0];
+	        String password = dbUri.getUserInfo().split(":")[1];
+	        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
+
+	        return DriverManager.getConnection(dbUrl, username, password);
+		} catch (URISyntaxException | SQLException e) {
+			System.out.println("Erro ao criar conexao com o banco");
 			e.printStackTrace();
 		}
-		return conexao;
+		return null;
 	}
 	
 	
-	public void fecharConexao(Connection conexao, PreparedStatement pstmt, ResultSet rs){
+	public void fecharConexao(Connection conexao, Statement pstmt, ResultSet rs){
 		
 		try {
 			
@@ -57,7 +49,23 @@ public class ConnectionFactory {
 			}
 					
 		} catch (Exception e) {
-			System.out.println("Erro ao fechar conexao com o banco: " + URL);
+			System.out.println("Erro ao fechar conexao com o banco");
+		}
+	}
+	
+public void fecharConexao(Connection conexao, Statement pstmt){
+		
+		try {
+			
+			if(conexao != null){
+				conexao.close();
+			}
+			if(pstmt != null){
+				pstmt.close();
+			}
+					
+		} catch (Exception e) {
+			System.out.println("Erro ao fechar conexao com o banco");
 		}
 	}
 }

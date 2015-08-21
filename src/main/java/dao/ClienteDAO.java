@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,16 +47,14 @@ public class ClienteDAO extends ConnectionFactory {
 	 * @return ArrayList<UserInfo> clientes
 	 */
 	public List<UserInfo> listarTodos(){
-		Connection conexao = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<UserInfo> clientes = null;
+		Connection conexao = criarConexao();
+		ArrayList<UserInfo> clientes = new ArrayList<UserInfo>();
 		
-		conexao = criarConexao();
-		clientes = new ArrayList<UserInfo>();
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			pstmt = conexao.prepareStatement("select * from cliente");
-			rs = pstmt.executeQuery();
+			stmt = conexao.createStatement();
+			rs = stmt.executeQuery("select * from cliente");
 			
 			while(rs.next()){
 				UserInfo cliente = new UserInfo();
@@ -79,7 +77,7 @@ public class ClienteDAO extends ConnectionFactory {
 			System.out.println("Erro ao listar todos os clientes: " + e);
 			e.printStackTrace();
 		} finally {
-			fecharConexao(conexao, pstmt, rs);
+			fecharConexao(conexao, stmt, rs);
 		}
 		return clientes;
 	}
@@ -96,16 +94,13 @@ public class ClienteDAO extends ConnectionFactory {
 	}
 	
 	public List<UserInfo> getFriends(double id) {
-		Connection conexao = null;
-		PreparedStatement pstmt = null;
+		Connection conexao = criarConexao();
+		List<UserInfo> amigos = new ArrayList<UserInfo>();
+		Statement stmt = null;
 		ResultSet rs = null;
-		List<UserInfo> amigos = null;
-		
-		conexao = criarConexao();
-		amigos = new ArrayList<UserInfo>();
 		try {
-			pstmt = conexao.prepareStatement("select amigo from amizade where cliente=" + id);
-			rs = pstmt.executeQuery();
+			stmt = conexao.createStatement();
+			rs = stmt.executeQuery("select amigo from amizade where cliente=" + id);
 			
 			while(rs.next()){
 				UserInfo cliente = new UserInfo();
@@ -128,7 +123,7 @@ public class ClienteDAO extends ConnectionFactory {
 			System.out.println("Erro ao listar os amigos: " + e);
 			e.printStackTrace();
 		} finally {
-			fecharConexao(conexao, pstmt, rs);
+			fecharConexao(conexao, stmt, rs);
 		}
 		return amigos;
 	}
@@ -192,38 +187,41 @@ public class ClienteDAO extends ConnectionFactory {
 	}
 	
 	public void newUser(String id, String name, String email, String picture) {
-		Connection conexao = null;
-		PreparedStatement pstmt = null;
-		conexao = criarConexao();
+		Connection conexao = criarConexao();
+		Statement stmt = null;
 		try {
-			pstmt = conexao.prepareStatement("insert into cliente values(" + id + "," + name + "," + email + "," + picture +  "," + 0 + "," + 0 +")");
-			pstmt.executeQuery();
+			stmt = conexao.createStatement();
+			stmt.executeQuery("insert into cliente values(" + id + "," + name + "," + email + "," + picture +  "," + 0 + "," + 0 +")");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			fecharConexao(conexao, stmt);
 		}
 	}
 	
 	public void newFriend(String idCliente, String idAmigo) {
-		Connection conexao = null;
-		PreparedStatement pstmt = null;
-		conexao = criarConexao();
+		Connection conexao = criarConexao();
+		Statement stmt = null;
 		try {
-			pstmt = conexao.prepareStatement("insert into amizade values(" + idCliente + "," + idAmigo + ")");
-			pstmt.executeQuery();
+			stmt = conexao.createStatement();
+			stmt.executeQuery("insert into amizade values(" + idCliente + "," + idAmigo + ")");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			fecharConexao(conexao, stmt);
 		}
 	}
 	
 	public void editarLocation (String idCliente, String latitude, String longitude) {
-		Connection conexao = null;
-		PreparedStatement pstmt = null;
-		conexao = criarConexao();
-		try { 
-			pstmt = conexao.prepareStatement("update cliente set latitude=" + latitude + ",longitude=" + longitude + "where id=" + idCliente);
-			pstmt.executeQuery();
+		Connection conexao = criarConexao();
+		Statement stmt = null;
+		try {
+			stmt = conexao.createStatement();
+			stmt.executeQuery("update cliente set latitude=" + latitude + ",longitude=" + longitude + "where id=" + idCliente);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			fecharConexao(conexao, stmt);
 		}
 	}
 }
