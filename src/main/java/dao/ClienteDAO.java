@@ -239,7 +239,7 @@ public class ClienteDAO extends ConnectionFactory {
 		try {
 			conexao = criarConexao();
 			stmt = conexao.createStatement();
-			stmt.executeQuery("delete from cliente where id='3'");
+			stmt.executeQuery("delete from cliente where id='5'");
 		} catch (SQLException | URISyntaxException e) {
 			System.out.println("Erro ao conectar com o banco de dados");
 			e.printStackTrace();
