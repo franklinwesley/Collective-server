@@ -20,7 +20,7 @@ public class ConnectionFactory {
 	public Connection criarConexao(){
 		URI dbUri;
 		try {
-			dbUri = new URI(System.getenv("DATABASE_URL"));
+			dbUri = new URI(System.getenv("postgres://oypfylxlwwczkz:k1a3GulmScVSMLX1f19p23yke_@ec2-107-21-125-143.compute-1.amazonaws.com:5432/dfa6hd1b2fpt89"));
 			String username = dbUri.getUserInfo().split(":")[0];
 	        String password = dbUri.getUserInfo().split(":")[1];
 	        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
